@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
@@ -33,3 +34,6 @@ Route::middleware(['auth'])->group(function () {
         )
         ->name('two-factor.show');
 });
+
+Route::get('auth/redirect', [AuthController::class, 'redirect'])->name('google.redirect');
+Route::get('auth/callback', [AuthController::class, 'callback'])->name('google.callback');
