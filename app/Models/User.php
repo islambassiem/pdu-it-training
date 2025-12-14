@@ -62,4 +62,10 @@ class User extends Authenticatable
             ->map(fn ($word) => Str::substr($word, 0, 1))
             ->implode('');
     }
+
+    public function videoProgress()
+    {
+        return $this->belongsToMany(Video::class, 'user_video_progress')
+            ->withPivot(['video_watched', 'quiz_score', 'completed_at']); // <-- Must include video_watched
+    }
 }

@@ -12,21 +12,24 @@
             </a>
 
             <flux:navlist variant="outline">
-                <flux:navlist.group :heading="__('Platform')" class="grid">
+                <flux:navlist.group :heading="__('Modules')" class="grid">
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
+                    <flux:navlist.item icon="phone" :href="route('video.show', 1)" :current="request()->routeIs('video.show') && request('id') == 1" wire:navigate>{{ __('IP Phone') }}</flux:navlist.item>
+                    <flux:navlist.item icon="shield-check" :href="route('video.show', 2)" :current="request()->routeIs('video.show') && request('id') == 2" wire:navigate>{{ __('Cyber Security') }}</flux:navlist.item>
+                    <flux:navlist.item icon="square-3-stack-3d" :href="route('video.show', 3)" :current="request()->routeIs('video.show') && request('id') == 3" wire:navigate>{{ __('Final') }}</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
 
             <flux:spacer />
 
             <flux:navlist variant="outline">
-                <flux:navlist.item icon="folder-git-2" href="https://github.com/laravel/livewire-starter-kit" target="_blank">
+                {{-- <flux:navlist.item icon="folder-git-2" href="https://github.com/laravel/livewire-starter-kit" target="_blank">
                 {{ __('Repository') }}
                 </flux:navlist.item>
 
                 <flux:navlist.item icon="book-open-text" href="https://laravel.com/docs/starter-kits#livewire" target="_blank">
                 {{ __('Documentation') }}
-                </flux:navlist.item>
+                </flux:navlist.item> --}}
             </flux:navlist>
 
             <!-- Desktop User Menu -->
@@ -57,11 +60,11 @@
                         </div>
                     </flux:menu.radio.group>
 
-                    <flux:menu.separator />
+                    {{-- <flux:menu.separator /> --}}
 
-                    <flux:menu.radio.group>
+                    {{-- <flux:menu.radio.group>
                         <flux:menu.item :href="route('profile.edit')" icon="cog" wire:navigate>{{ __('Settings') }}</flux:menu.item>
-                    </flux:menu.radio.group>
+                    </flux:menu.radio.group> --}}
 
                     <flux:menu.separator />
 
@@ -107,11 +110,11 @@
                         </div>
                     </flux:menu.radio.group>
 
-                    <flux:menu.separator />
+                    {{-- <flux:menu.separator />
 
                     <flux:menu.radio.group>
                         <flux:menu.item :href="route('profile.edit')" icon="cog" wire:navigate>{{ __('Settings') }}</flux:menu.item>
-                    </flux:menu.radio.group>
+                    </flux:menu.radio.group> --}}
 
                     <flux:menu.separator />
 
