@@ -24,6 +24,7 @@
     var player = new Vimeo.Player(iframe, {
         id: '{{ $video->vimeo_id }}',
         autoplay: true,
+        muted: false,
         responsive: true,
         controls: false,
     });
