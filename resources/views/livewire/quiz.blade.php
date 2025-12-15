@@ -17,6 +17,59 @@
         <div class="p-6 bg-green-100 text-green-700 border border-green-200 rounded-lg">
             ✅ **Quiz Completed!** Your final score was **{{ $score }}/{{ count($quizQuestions) }}**.
         </div>
+
+        <h3 class="text-2xl font-bold mb-4 text-blue-800">Review Your Answers</h3>
+        <div class="space-y-8">
+            @foreach ($quizQuestions as $index => $question)
+                @php
+                    $correctKey = $question['correct_option_key'];
+                    // Get the user's selected key (safely access the array)
+                    $userKey = (json_decode($userAnswers))[$index] ?? null;
+                    $isCorrect = ($userKey === $correctKey);
+
+                    // Determine CSS classes for visual feedback
+                    $cardClass = $isCorrect ? 'border-green-400 bg-green-50' : 'border-red-400 bg-red-50';
+                @endphp
+
+                <div class="p-4 border-l-4 {{ $cardClass }} shadow-md rounded-lg">
+
+                    {{-- Question Status and Text --}}
+                    <div class="flex items-start mb-4">
+                        <span class="text-xl mr-3 {{ $isCorrect ? 'text-green-600' : 'text-red-600' }}">
+                            {{ $isCorrect ? '👍' : '❌' }}
+                        </span>
+                        <p class="font-semibold text-lg">
+                            Q{{ $index + 1 }}: {{ $question['question_text'] }}
+                        </p>
+                    </div>
+
+                    {{-- Options Review --}}
+                    <div class="space-y-2 ml-7">
+                        @foreach ($question['options'] as $key => $optionText)
+                            @php
+                                $isUserSelection = ($key === $userKey);
+                                $isCorrectOption = ($key === $correctKey);
+
+                                $optionClass = 'text-gray-700 p-2 rounded';
+
+                                if ($isCorrectOption) {
+                                    // Highlight the correct answer in green
+                                    $optionClass = 'bg-green-200 font-bold text-green-800 p-2 rounded border border-green-300';
+                                } elseif ($isUserSelection && !$isCorrect) {
+                                    // Highlight the wrong answer selected by the user in red
+                                    $optionClass = 'bg-red-200 font-bold text-red-800 p-2 rounded border border-red-300';
+                                }
+                            @endphp
+
+                            <div class="flex items-center {{ $optionClass }}">
+                                <span class="mr-2 text-sm font-mono">{{ $key }}.</span>
+                                <span>{{ $optionText }}</span>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            @endforeach
+        </div>
     @else
         <form wire:submit.prevent="submitQuiz">
             @foreach($quizQuestions as $index => $question)

@@ -14,10 +14,7 @@
                 @livewire('video-player', ['video' => $video])
 
                 <hr class="my-8 border-t border-gray-200">
-                @php
-                //    dd(request('id'));
-                @endphp
-
+                
                 {{-- 2. Quiz Component (Enabled after video is watched) --}}
                 @livewire('quiz', ['video' => $video])
             </div>
