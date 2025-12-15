@@ -66,6 +66,7 @@ class User extends Authenticatable
     public function videoProgress()
     {
         return $this->belongsToMany(Video::class, 'user_video_progress')
-            ->withPivot(['video_watched', 'quiz_score', 'completed_at']); // <-- Must include video_watched
+            ->withPivot(['video_watched', 'quiz_score', 'user_answers', 'completed_at']) // <-- ADD 'user_answers' here
+            ->as('progress'); // Ensure the pivot table is named for access
     }
 }

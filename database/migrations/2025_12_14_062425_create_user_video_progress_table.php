@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('video_id')->constrained()->onDelete('cascade');
             $table->boolean('video_watched')->default(false);
             $table->integer('quiz_score')->nullable();
+            $table->json('user_answers')->nullable();
             $table->timestamp('completed_at')->nullable();
             $table->timestamps();
 

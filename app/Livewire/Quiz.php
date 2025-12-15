@@ -36,6 +36,13 @@ class Quiz extends Component
             }
         }
 
+        // =========================================================================
+        // FIX: Ensure the record is created if it doesn't exist before checking progress
+        // =========================================================================
+        Auth::user()->videoProgress()->firstOrCreate(
+            ['video_id' => $this->video->id]
+        );
+
         $this->checkProgress();
     }
 
@@ -47,11 +54,16 @@ class Quiz extends Component
 
         if ($progress) {
             // Crucially, this must access the pivot table data!
-            $this->videoWatched = $progress->pivot->video_watched;
+            $this->videoWatched = $progress->progress->video_watched;
 
-            $this->score = $progress->pivot->quiz_score;
+            $this->score = $progress->progress->quiz_score;
             if ($this->score !== null) {
                 $this->quizCompleted = true;
+                // ==============================================
+                // ADDED: Load saved answers back into userAnswers for review
+                // Laravel automatically handles decoding the JSON from the database
+                // ==============================================
+                $this->userAnswers = $progress->progress->user_answers ?? [];
             }
         }
     }
@@ -85,11 +97,17 @@ class Quiz extends Component
         // 3. Update the user's progress
         Auth::user()->videoProgress()->updateExistingPivot($this->video->id, [
             'quiz_score' => $this->score,
+            // ==============================================
+            // ADDED: Saving the user's answers array (will be JSON encoded)
+            // ==============================================
+            'user_answers' => $this->userAnswers,
             'completed_at' => now(),
         ]);
 
         $this->quizCompleted = true;
-        // session()->flash('quiz_message', "Quiz submitted! Your score is: {$this->score}/count($this->quizQuestions).");
+
+        // Crucial: Re-run checkProgress to load the saved answers/score back into the component state
+        $this->checkProgress();
     }
 
     public function render()

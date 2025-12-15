@@ -25,7 +25,7 @@
         id: '{{ $video->vimeo_id }}',
         autoplay: true,
         responsive: true,
-        controls: false,
+        controls: true,
     });
 
     // Only set the 'ended' listener IF the video hasn't been watched yet.
