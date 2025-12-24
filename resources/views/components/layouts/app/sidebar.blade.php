@@ -15,8 +15,8 @@
                 <flux:navlist.group :heading="__('Modules')" class="grid">
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')">{{ __('Dashboard') }}</flux:navlist.item>
                     <flux:navlist.item icon="square-3-stack-3d" :href="route('video.show', 3)" :current="request()->routeIs('video.show') && request('id') == 3">{{ __('Awareness') }}</flux:navlist.item>
-                    <flux:navlist.item icon="phone" :href="route('video.show', 1)" :current="request()->routeIs('video.show') && request('id') == 1">{{ __('IP Phone') }}</flux:navlist.item>
                     <flux:navlist.item icon="shield-check" :href="route('video.show', 2)" :current="request()->routeIs('video.show') && request('id') == 2">{{ __('Cyber Security') }}</flux:navlist.item>
+                    <flux:navlist.item icon="phone" :href="route('video.show', 1)" :current="request()->routeIs('video.show') && request('id') == 1">{{ __('IP Phone') }}</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
 
